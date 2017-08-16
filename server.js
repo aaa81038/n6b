@@ -13,7 +13,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var swig = require('swig');
 
-// Get environment variables
+// Get environment variables 2
 dotenv.load();
 
 // Import application Controllers
@@ -30,8 +30,8 @@ var app = express();
 //mongoose.connect(process.env.MONGODB);
 mongoose.connect('mongodb://' + (process.env.DB_PORT_27017_TCP_ADDR || process.env.MONGODB) + '/nb6');
 mongoose.connection.on('error', function() {
-  console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
-  process.exit(1);
+    console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
+    process.exit(1);
 });
 
 // Setup View Engine
@@ -51,8 +51,8 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function(req, res, next) {
-  res.locals.user = req.user;
-  next();
+    res.locals.user = req.user;
+    next();
 });
 // setup public directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -68,16 +68,16 @@ app.get('/login', user.loginGet);
 app.post('/login', user.loginPost);
 app.get('/logout', user.logout);
 
-// production error handler
+// production error handlerk
 if (app.get('env') === 'production') {
-  app.use(function(err, req, res, next) {
-    console.error(err.stack);
-    res.sendStatus(err.status || 500);
-  });
+    app.use(function(err, req, res, next) {
+        console.error(err.stack);
+        res.sendStatus(err.status || 500);
+    });
 }
 
 app.listen(app.get('port'), function() {
-  console.log('Express server listening on port ' + app.get('port'));
+    console.log('Express server listening on port ' + app.get('port'));
 });
 
 module.exports = app;
